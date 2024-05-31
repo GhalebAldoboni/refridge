@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start --prefix=frontend && npm run start --prefix=backend/nodejs-server"
-  },
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend/nodejs-server && nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run api\" \"npm run frontend\"",
+    "heroku-postbuild": "cd frontend && npm install && npm run build" },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,10 +15,6 @@
     "nodemon": "^3.1.2",
     "openai": "^4.47.2"
   }
+  
 }
-  "scripts": {
-    "frontend": "cd frontend && npm start",
-    "backend": "cd backend/nodejs-server && nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run api\" \"npm run frontend\"",
-    "heroku-postbuild": "cd frontend && npm install && npm run build"
-  },
+
