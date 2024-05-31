@@ -15,7 +15,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Enable CORS for all routes
-app.use(cors());
+const path = require('path')
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+// AFTER defining routes: Anything that doesn't match what's above, send back index.html; (the beginning slash ('/') in the string is important!)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../frontend/build/index.js'))
+})
 
 // MongoDB configuration
 const mongoURI ="mongodb+srv://thenewghaleb:Mq7Pm0GPqHEhyLFO@refridge.xgx6g13.mongodb.net/?retryWrites=true&w=majority&appName=refridge"
